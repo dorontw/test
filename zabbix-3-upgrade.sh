@@ -114,36 +114,4 @@ exit_status_function
 
 
 
-- need to check if a line that that starts #DBPassword exists or not
-########3
-
-#check
-cat /etc/zabbix/zabbix_server.conf | grep ^DBPassword=
-if [ $? = 0 ]
-then
-	#comment the line
-	sed -i -r '/^DBPassword=/ s/^(.*)$/#\1/g' /etc/zabbix/zabbix_server.conf
-	#insert the new line below the commented line
-	sed -i '/#DBPassword=/a DBPassword=zabbix' /etc/zabbix/zabbix_server.conf
-else
-	#add it to the bottom of the conf file
-	echo DBPassword=zabbix >> /etc/zabbix/zabbix_server.conf
-fi
-	
-##############3	
-	
-	#add string to end of string that starts with DBPassword
-    sed -i '/^#DBPassword/s/.*/& cowpower/' /etc/zabbix/zabbix_server.conf 
-	
-I want to add a date to it
-DATE_TIME=`date '+%m_%d_%Y__%H:%M:%S'`
-sed -i '/^#DBPassword/s/.*/& #commented at '$DATE_TIME'/' /etc/zabbix/zabbix_server.conf 
-
-echo -e "\nRemoving old zabbix web frontend"
-rm -rf /var/www/html/zabbix
-
-echo -e "\nInstall old zabbix web frontend"
-cp -r /usr/share/zabbix/ /var/www/html/zabbix
-
-
 
