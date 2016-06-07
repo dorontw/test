@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Variables
+#Variables -
 
 zab_db_host=localhost
 zab_db_name=zabbix
